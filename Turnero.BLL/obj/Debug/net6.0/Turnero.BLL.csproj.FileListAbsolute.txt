@@ -1,0 +1,14 @@
+E:\c#\turnero\Turnero.BLL\bin\Debug\net6.0\Turnero.BLL.deps.json
+E:\c#\turnero\Turnero.BLL\bin\Debug\net6.0\Turnero.BLL.runtimeconfig.json
+E:\c#\turnero\Turnero.BLL\bin\Debug\net6.0\Turnero.BLL.dll
+E:\c#\turnero\Turnero.BLL\bin\Debug\net6.0\Turnero.BLL.pdb
+E:\c#\turnero\Turnero.BLL\obj\Debug\net6.0\Turnero.BLL.csproj.AssemblyReference.cache
+E:\c#\turnero\Turnero.BLL\obj\Debug\net6.0\Turnero.BLL.GeneratedMSBuildEditorConfig.editorconfig
+E:\c#\turnero\Turnero.BLL\obj\Debug\net6.0\Turnero.BLL.AssemblyInfoInputs.cache
+E:\c#\turnero\Turnero.BLL\obj\Debug\net6.0\Turnero.BLL.AssemblyInfo.cs
+E:\c#\turnero\Turnero.BLL\obj\Debug\net6.0\Turnero.BLL.csproj.CoreCompileInputs.cache
+E:\c#\turnero\Turnero.BLL\obj\Debug\net6.0\Turnero.BLL.dll
+E:\c#\turnero\Turnero.BLL\obj\Debug\net6.0\refint\Turnero.BLL.dll
+E:\c#\turnero\Turnero.BLL\obj\Debug\net6.0\Turnero.BLL.pdb
+E:\c#\turnero\Turnero.BLL\obj\Debug\net6.0\Turnero.BLL.genruntimeconfig.cache
+E:\c#\turnero\Turnero.BLL\obj\Debug\net6.0\ref\Turnero.BLL.dll

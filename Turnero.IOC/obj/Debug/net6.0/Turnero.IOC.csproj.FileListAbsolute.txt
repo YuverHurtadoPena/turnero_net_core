@@ -1,0 +1,14 @@
+E:\c#\turnero\Turnero.IOC\bin\Debug\net6.0\Turnero.IOC.deps.json
+E:\c#\turnero\Turnero.IOC\bin\Debug\net6.0\Turnero.IOC.runtimeconfig.json
+E:\c#\turnero\Turnero.IOC\bin\Debug\net6.0\Turnero.IOC.dll
+E:\c#\turnero\Turnero.IOC\bin\Debug\net6.0\Turnero.IOC.pdb
+E:\c#\turnero\Turnero.IOC\obj\Debug\net6.0\Turnero.IOC.csproj.AssemblyReference.cache
+E:\c#\turnero\Turnero.IOC\obj\Debug\net6.0\Turnero.IOC.GeneratedMSBuildEditorConfig.editorconfig
+E:\c#\turnero\Turnero.IOC\obj\Debug\net6.0\Turnero.IOC.AssemblyInfoInputs.cache
+E:\c#\turnero\Turnero.IOC\obj\Debug\net6.0\Turnero.IOC.AssemblyInfo.cs
+E:\c#\turnero\Turnero.IOC\obj\Debug\net6.0\Turnero.IOC.csproj.CoreCompileInputs.cache
+E:\c#\turnero\Turnero.IOC\obj\Debug\net6.0\Turnero.IOC.dll
+E:\c#\turnero\Turnero.IOC\obj\Debug\net6.0\refint\Turnero.IOC.dll
+E:\c#\turnero\Turnero.IOC\obj\Debug\net6.0\Turnero.IOC.pdb
+E:\c#\turnero\Turnero.IOC\obj\Debug\net6.0\Turnero.IOC.genruntimeconfig.cache
+E:\c#\turnero\Turnero.IOC\obj\Debug\net6.0\ref\Turnero.IOC.dll
