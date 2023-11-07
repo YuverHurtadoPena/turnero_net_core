@@ -16,5 +16,13 @@ namespace Turnero.IOC
 {
     public static class Dependencia
     {
+        public static void InyecionDepencia(this IServiceCollection services, IConfiguration Configuration)
+        {
+            services.AddDbContext<TurneroContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("cadenaSQL"));
+            });
+            services.AddTransient(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+        }
     }
 }
