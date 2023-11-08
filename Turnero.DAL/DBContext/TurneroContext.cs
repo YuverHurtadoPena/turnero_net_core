@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Turnero.Entity;
-
-namespace Turnero.DAL.DBContext;
 
 public partial class TurneroContext : DbContext
 {
@@ -42,7 +39,6 @@ public partial class TurneroContext : DbContext
     {
         //> optionsBuilder.UseSqlServer("Server=(local); Database=turnero; Integrated Security=true; Encrypt=false;");
     }
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
