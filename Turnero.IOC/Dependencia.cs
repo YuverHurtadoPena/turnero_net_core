@@ -23,6 +23,7 @@ namespace Turnero.IOC
                 options.UseSqlServer(Configuration.GetConnectionString("cadenaSQL"));
             });
             services.AddTransient(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+            services.AddScoped<ICorreoService, CorreoService>();
         }
     }
 }

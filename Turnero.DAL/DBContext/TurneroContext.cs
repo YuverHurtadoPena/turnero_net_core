@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using Microsoft.EntityFrameworkCore;
+using Turnero.Entity;
+namespace Turnero.DAL.DBContext;
 
 public partial class TurneroContext : DbContext
 {
@@ -16,6 +17,8 @@ public partial class TurneroContext : DbContext
     public virtual DbSet<AtendidoPor> AtendidoPors { get; set; }
 
     public virtual DbSet<Cita> Cita { get; set; }
+
+    public virtual DbSet<Configuracion> Configuracions { get; set; }
 
     public virtual DbSet<Departamento> Departamentos { get; set; }
 
@@ -35,9 +38,8 @@ public partial class TurneroContext : DbContext
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        //> optionsBuilder.UseSqlServer("Server=(local); Database=turnero; Integrated Security=true; Encrypt=false;");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+        //  optionsBuilder.UseSqlServer("Server=(local); Database=turnero; Integrated Security=true; Encrypt=false;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -95,6 +97,26 @@ public partial class TurneroContext : DbContext
             entity.HasOne(d => d.IdTurnoCitaNavigation).WithMany(p => p.Cita)
                 .HasForeignKey(d => d.IdTurnoCita)
                 .HasConstraintName("FK__cita__id_turno_c__656C112C");
+        });
+
+        modelBuilder.Entity<Configuracion>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Configuracion");
+
+            entity.Property(e => e.Propiedad)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("propiedad");
+            entity.Property(e => e.Recurso)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("recurso");
+            entity.Property(e => e.Valor)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("valor");
         });
 
         modelBuilder.Entity<Departamento>(entity =>

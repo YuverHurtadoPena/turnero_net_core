@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "C/xE7lheJxJ/TxQBQx8909a2ExHcHEOnR4++KSC4dW0=",
+  "Hash": "inUMkygfvbbkbdaeeO49AXxbxrfNYz5kzB5x2PbVu88=",
   "Source": "Turnero.AplicacionWeb",
   "BasePath": "_content/Turnero.AplicacionWeb",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\sb-admin-2.min.css"
+    },
+    {
+      "Identity": "E:\\c#\\turnero\\Turnero.AplicacionWeb\\wwwroot\\css\\site.css",
+      "SourceId": "Turnero.AplicacionWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\c#\\turnero\\Turnero.AplicacionWeb\\wwwroot\\",
+      "BasePath": "_content/Turnero.AplicacionWeb",
+      "RelativePath": "css/site.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
       "Identity": "E:\\c#\\turnero\\Turnero.AplicacionWeb\\wwwroot\\favicon.ico",
@@ -236,6 +253,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\sb-admin-2.min.js"
+    },
+    {
+      "Identity": "E:\\c#\\turnero\\Turnero.AplicacionWeb\\wwwroot\\js\\site.js",
+      "SourceId": "Turnero.AplicacionWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\c#\\turnero\\Turnero.AplicacionWeb\\wwwroot\\",
+      "BasePath": "_content/Turnero.AplicacionWeb",
+      "RelativePath": "js/site.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
       "Identity": "E:\\c#\\turnero\\Turnero.AplicacionWeb\\wwwroot\\js\\vistas\\chart-bar-demo.js",
