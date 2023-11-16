@@ -9,7 +9,7 @@ using System.Net;
 using Turnero.Entity;
 using Turnero.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
-
+ 
 namespace Turnero.BLL.Implementacion
 {
     public class UsuarioService : IUsuarioService
@@ -27,9 +27,22 @@ namespace Turnero.BLL.Implementacion
             _utileriaService = utileriaService;
             _correoService = correoService;
         }
-        public Task<bool> CambiarClave(int IdUsuario, string ClaveActual, string ClaveNueva)
+        public async Task<bool> CambiarClave(int IdUsuario, string ClaveActual, string ClaveNueva)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Usuario usuarioEncontrado = await _repository.Obtener(u => u.UsuarioId == IdUsuario);
+                if (usuarioEncontrado == null)
+                    throw new TaskCanceledException("El usuario no existe");
+                if (usuarioEncontrado.Clave != _utileriaService.ConvertirSha256(ClaveActual))
+                    throw new TaskCanceledException("La contraseña ingresa como actual no es correcta");
+                usuarioEncontrado.Clave = _utileriaService.ConvertirSha256(ClaveNueva);
+                bool respuesta = await _repository.Editar(usuarioEncontrado);
+
+               
+                return respuesta;
+            }
+            catch (Exception ex) { throw; }
         }
 
         public async Task<Usuario> Crear(Usuario entidad, string UrlPlantillaCorreo)
@@ -49,19 +62,69 @@ namespace Turnero.BLL.Implementacion
                 {
                     UrlPlantillaCorreo = UrlPlantillaCorreo.Replace("[correo]", usuario_creado.Usuario1).Replace("[clave]", usuario_creado.Clave);
                     string htmlCorreo = "";
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(UrlPlantillaCorreo);
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                    if(response.StatusCode == HttpStatusCode.OK)
+                    {
+                        using(Stream dataStream = response.GetResponseStream())
+                        {
+                            StreamReader reader = null;
+                            if(response.CharacterSet == null)
+                            {
+                                reader = new StreamReader(dataStream);
+
+                            }
+                            else
+                            {
+                                reader = new StreamReader(dataStream, Encoding.GetEncoding(response.CharacterSet));
+                            }
+                            htmlCorreo = reader.ReadToEnd();
+                            response.Close();
+                            reader.Close();
+                        }
+                    }
+                    if (htmlCorreo != "")
+                        await _correoService.EnviarCorreo(usuario_creado.Usuario1, "Cuenta creada con exito", htmlCorreo);
+                   
+
                 }
+                IQueryable<Usuario> query = await _repository.Consultar(u => u.UsuarioId == usuario_creado.UsuarioId);
+                usuario_creado = query.Include(r => r.Rol).First();
+                return usuario_creado;
             }
-            catch(Exception ex) { }
+            catch(Exception ex) { throw; }
         }
 
-        public Task<Usuario> Editar(Usuario entidad)
+        public async Task<Usuario> Editar(Usuario entidad)
         {
-            throw new NotImplementedException();
+            Usuario existe = await _repository.Obtener(u => u.Usuario1 == entidad.Usuario1 && u.UsuarioId != entidad.UsuarioId);
+            if (existe == null)
+            {
+                throw new TaskCanceledException("El correo ya existe");
+            }
+            try {
+                IQueryable<Usuario> queryUsuario = await _repository.Consultar(u => u.UsuarioId == entidad.UsuarioId);
+                Usuario usuarioEditar = queryUsuario.First();
+                usuarioEditar.Usuario1 = entidad.Usuario1;
+                bool respuesta = await _repository.Editar(usuarioEditar);
+                if (!respuesta)
+                    throw new TaskCanceledException("No se pudo editar el usuario");
+
+                Usuario editado = queryUsuario.Include(r => r.Rol).First();
+                return editado;
+            }
+            catch(Exception ex) { throw; }
         }
 
-        public Task<bool> Eliminar(int IdUsuario)
+        public async Task<bool> Eliminar(int IdUsuario)
         {
-            throw new NotImplementedException();
+            try { 
+                Usuario usuarioEncontrado = await _repository.Obtener(u => u.UsuarioId == IdUsuario);
+                if(usuarioEncontrado == null) 
+                    throw new TaskCanceledException("El usuario no existe"); 
+                bool respuesta = await _repository.Eliminar(usuarioEncontrado);
+                 return respuesta;
+            }catch(Exception ex) { throw; }
         }
 
         public Task<bool> GuardarPerfil(Usuario entidad)
@@ -75,14 +138,18 @@ namespace Turnero.BLL.Implementacion
             return query.Include(r => r.Rol).ToList();
         }
 
-        public Task<Usuario> ObtenerPorCredenciales(string correo, string clave)
+        public async Task<Usuario> ObtenerPorCredenciales(string correo, string clave)
         {
-            throw new NotImplementedException();
+            string claveEncriptada = _utileriaService.ConvertirSha256(clave);
+            Usuario usuarioEncontrado = await _repository.Obtener(u => u.Usuario1.Equals(correo) && clave.Equals(claveEncriptada));
+            return usuarioEncontrado;
         }
 
-        public Task<Usuario> ObtenerPorId(int IdUsuario)
+        public async Task<Usuario> ObtenerPorId(int IdUsuario)
         {
-            throw new NotImplementedException();
+           IQueryable<Usuario> query = await _repository.Consultar(u => u.UsuarioId == IdUsuario);
+            Usuario resultado = query.Include(r => r.Rol).FirstOrDefault();
+            return resultado;
         }
 
         public Task<bool> RestablecerClave(string Correo, string UrlPlantillaCorreo)
