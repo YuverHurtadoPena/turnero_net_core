@@ -9,7 +9,7 @@ using System.Net;
 using Turnero.Entity;
 using Turnero.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
- 
+
 namespace Turnero.BLL.Implementacion
 {
     public class UsuarioService : IUsuarioService
@@ -39,7 +39,7 @@ namespace Turnero.BLL.Implementacion
                 usuarioEncontrado.Clave = _utileriaService.ConvertirSha256(ClaveNueva);
                 bool respuesta = await _repository.Editar(usuarioEncontrado);
 
-               
+
                 return respuesta;
             }
             catch (Exception ex) { throw; }
@@ -48,28 +48,29 @@ namespace Turnero.BLL.Implementacion
         public async Task<Usuario> Crear(Usuario entidad, string UrlPlantillaCorreo)
         {
             Usuario existe = await _repository.Obtener(u => u.Usuario1 == entidad.Usuario1);
-            if ( existe == null )
+            if (existe == null)
             {
                 throw new TaskCanceledException("El correo ya existe");
             }
-            try{
+            try
+            {
                 string clave_generada = _utileriaService.GenerarClave();
                 entidad.Clave = _utileriaService.ConvertirSha256(clave_generada);
                 Usuario usuario_creado = await _repository.Crear(entidad);
-                if( usuario_creado.UsuarioId == 0)
+                if (usuario_creado.UsuarioId == 0)
                     throw new TaskCanceledException("No se pudo crear el usuario");
-                if(UrlPlantillaCorreo != "")
+                if (UrlPlantillaCorreo != "")
                 {
                     UrlPlantillaCorreo = UrlPlantillaCorreo.Replace("[correo]", usuario_creado.Usuario1).Replace("[clave]", usuario_creado.Clave);
                     string htmlCorreo = "";
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(UrlPlantillaCorreo);
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                    if(response.StatusCode == HttpStatusCode.OK)
+                    if (response.StatusCode == HttpStatusCode.OK)
                     {
-                        using(Stream dataStream = response.GetResponseStream())
+                        using (Stream dataStream = response.GetResponseStream())
                         {
                             StreamReader reader = null;
-                            if(response.CharacterSet == null)
+                            if (response.CharacterSet == null)
                             {
                                 reader = new StreamReader(dataStream);
 
@@ -85,14 +86,14 @@ namespace Turnero.BLL.Implementacion
                     }
                     if (htmlCorreo != "")
                         await _correoService.EnviarCorreo(usuario_creado.Usuario1, "Cuenta creada con exito", htmlCorreo);
-                   
+
 
                 }
                 IQueryable<Usuario> query = await _repository.Consultar(u => u.UsuarioId == usuario_creado.UsuarioId);
                 usuario_creado = query.Include(r => r.Rol).First();
                 return usuario_creado;
             }
-            catch(Exception ex) { throw; }
+            catch (Exception ex) { throw; }
         }
 
         public async Task<Usuario> Editar(Usuario entidad)
@@ -102,7 +103,8 @@ namespace Turnero.BLL.Implementacion
             {
                 throw new TaskCanceledException("El correo ya existe");
             }
-            try {
+            try
+            {
                 IQueryable<Usuario> queryUsuario = await _repository.Consultar(u => u.UsuarioId == entidad.UsuarioId);
                 Usuario usuarioEditar = queryUsuario.First();
                 usuarioEditar.Usuario1 = entidad.Usuario1;
@@ -113,18 +115,20 @@ namespace Turnero.BLL.Implementacion
                 Usuario editado = queryUsuario.Include(r => r.Rol).First();
                 return editado;
             }
-            catch(Exception ex) { throw; }
+            catch (Exception ex) { throw; }
         }
 
         public async Task<bool> Eliminar(int IdUsuario)
         {
-            try { 
+            try
+            {
                 Usuario usuarioEncontrado = await _repository.Obtener(u => u.UsuarioId == IdUsuario);
-                if(usuarioEncontrado == null) 
-                    throw new TaskCanceledException("El usuario no existe"); 
+                if (usuarioEncontrado == null)
+                    throw new TaskCanceledException("El usuario no existe");
                 bool respuesta = await _repository.Eliminar(usuarioEncontrado);
-                 return respuesta;
-            }catch(Exception ex) { throw; }
+                return respuesta;
+            }
+            catch (Exception ex) { throw; }
         }
 
         public Task<bool> GuardarPerfil(Usuario entidad)
@@ -147,7 +151,7 @@ namespace Turnero.BLL.Implementacion
 
         public async Task<Usuario> ObtenerPorId(int IdUsuario)
         {
-           IQueryable<Usuario> query = await _repository.Consultar(u => u.UsuarioId == IdUsuario);
+            IQueryable<Usuario> query = await _repository.Consultar(u => u.UsuarioId == IdUsuario);
             Usuario resultado = query.Include(r => r.Rol).FirstOrDefault();
             return resultado;
         }

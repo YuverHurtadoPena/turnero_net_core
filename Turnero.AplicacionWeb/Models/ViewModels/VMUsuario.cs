@@ -15,6 +15,6 @@
         public string NombreRol { get; set; } = null!;
         public int? IdPersona { get; set; }
 
-        
+
     }
 }

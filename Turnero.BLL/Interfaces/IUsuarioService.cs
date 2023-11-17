@@ -17,7 +17,7 @@ namespace Turnero.BLL.Interfaces
         Task<Usuario> ObtenerPorId(int IdUsuario);
         Task<bool> GuardarPerfil(Usuario entidad);
         Task<bool> CambiarClave(int IdUsuario, string ClaveActual, string ClaveNueva);
-        Task<bool> RestablecerClave( string Correo, string UrlPlantillaCorreo);
+        Task<bool> RestablecerClave(string Correo, string UrlPlantillaCorreo);
 
     }
 }

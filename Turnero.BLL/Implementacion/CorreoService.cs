@@ -21,7 +21,8 @@ namespace Turnero.BLL.Implementacion
         }
         public async Task<bool> EnviarCorreo(string CorreoDestino, string Asunto, string Mensaje)
         {
-            try {
+            try
+            {
                 IQueryable<Configuracion> query = await _repositorio.Consultar(c => c.Recurso.Equals("Servicio_Correo"));
                 Dictionary<string, string> Config = query.ToDictionary(keySelector: c => c.Propiedad, elementSelector: c => c.Valor);
                 var credenciales = new NetworkCredential(Config["correo"], Config["clave"]);
@@ -33,7 +34,8 @@ namespace Turnero.BLL.Implementacion
                     IsBodyHtml = true
                 };
                 correo.To.Add(new MailAddress(CorreoDestino));
-                var clienteServidor = new SmtpClient() { 
+                var clienteServidor = new SmtpClient()
+                {
                     Host = Config["host"],
                     Port = int.Parse(Config["puerto"]),
                     DeliveryMethod = SmtpDeliveryMethod.Network,
@@ -42,7 +44,9 @@ namespace Turnero.BLL.Implementacion
                 };
                 clienteServidor.Send(correo);
                 return true;
-            }catch (Exception ex) { 
+            }
+            catch (Exception ex)
+            {
                 return false;
             }
         }

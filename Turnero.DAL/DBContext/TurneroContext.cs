@@ -38,7 +38,8 @@ public partial class TurneroContext : DbContext
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
         //  optionsBuilder.UseSqlServer("Server=(local); Database=turnero; Integrated Security=true; Encrypt=false;");
     }
 

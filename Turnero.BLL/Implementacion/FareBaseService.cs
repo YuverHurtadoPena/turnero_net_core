@@ -34,7 +34,9 @@ namespace Turnero.BLL.Implementacion
                 /*IQueryable<Configuracion> query = await _repository.Consultar(c => c.Recurso.Equals("FireBase_Storage"));
                 Dictionary<string, string> Config = query.ToDictionary(keySelector: c => c.Propiedad, elementSelector: c => c.Valor);
                 var auth = new FirebaseAuthProvider(new FirebaseConfig(Config["api_key"]));*/
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 return "";
             }
         }

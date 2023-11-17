@@ -23,7 +23,7 @@ namespace Turnero.BLL.Implementacion
                 }
             }
             return sb.ToString();
-            
+
         }
 
         public string GenerarClave()

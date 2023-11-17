@@ -12,7 +12,7 @@ namespace Turnero.AplicacionWeb.Controllers
             return View();
         }
 
-        public IActionResult RestablecerClave( string clave)
+        public IActionResult RestablecerClave(string clave)
         {
             ViewData["Clave"] = clave;
             return View();

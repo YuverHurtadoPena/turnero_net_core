@@ -18,7 +18,7 @@ namespace Turnero.BLL.Implementacion
         }
         public async Task<List<Rol>> Lista()
         {
-            IQueryable<Rol> query =  await _repositorio.Consultar();
+            IQueryable<Rol> query = await _repositorio.Consultar();
             return query.ToList();
         }
     }
